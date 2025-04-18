@@ -1,12 +1,24 @@
-FROM alpine
+FROM python:3.9-alpine
 
-RUN apk add --no-cache python3
+# Set environment variables to prevent Python from writing .pyc files and buffering output
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
 
-ADD requirements.pip requirements.pip
-RUN pip3 install -r requirements.pip
+# Install dependencies
+RUN apk update && apk add --no-cache gcc musl-dev libffi-dev
 
-ADD src src
+# Copy requirements file and install Python dependencies
+COPY requirements.pip /app/requirements.pip
+RUN pip install --no-cache-dir -r /app/requirements.pip
 
+# Copy application source code
+COPY src /app/src
+
+# Set the working directory
+WORKDIR /app/src
+
+# Expose the application port
 EXPOSE 5000
 
-CMD ["python3", "/src/run.py"]
+# Command to run the application
+CMD ["python3", "run.py"]
