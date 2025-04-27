@@ -2,22 +2,15 @@
 
 ## ¿Que cambios se ralizaron?
 
-
 Cambiamos el yml con el uso de una variable común para no repetir la declaración de que permite debuggear el entorno del servicio, y se elimino el contenedor aggregate y se utilizo su lógica dentro del contenedor de Backend
-
 
 ## ¿Por qué se realizaron lo cambios?
 
-
 Se realizaron los cambios debido a que la función 'detail' se puede utilizar dentro de la lógica de 'Backend', esto reduciendo el tiempo de ejecución, de recursos y de complejidad
 
-## Running it
+## Instrucciones del repositorio original
 
-You need docker and docker-compose. Follow your OS instructions for doing that.  The docker images start with Alpine and install Python3. The only dependencies in Python are Flask, Faker, and requests.
-
-## Testing it
-
-With the docker-compose running and postman, try the following URLS:
+Estas instrucciones estaban en el repositorio original para ver fácilmente la ejecución los servicios
 
 ### A bunch of raw orders:
 
