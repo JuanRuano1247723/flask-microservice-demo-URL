@@ -1,32 +1,15 @@
 # Flask Microservice Demo
 
-This project is an example of using nothing but python3, flask, requests, and docker to make a complete microservice architecture implementation.  Yes, it passes JSON around in between the microservices, which is arguably not a great idea, but it's hard to argue with how easy these are to spin up.
+## ¿Que cambios se ralizaron?
 
-## Architecture Diagram
 
-Here's the architecture diagram:
+Cambiamos el yml con el uso de una variable común para no repetir la declaración de que permite debuggear el entorno del servicio, y se elimino el contenedor aggregate y se utilizo su lógica dentro del contenedor de Backend
 
-_Edit: I added another GET to the backend to test the custSearch functionality and demo a JSON payload in client. Details below._
 
-![Architecture Diagram](https://i.imgur.com/IUAfN8O.png)
+## ¿Por qué se realizaron lo cambios?
 
-For testing fun all of the microservices are exposed, but in a real application only the backend (or API) would be.
 
-## Description of the containers
-
-There are four different docker images that are build for this demo. Backend is the API layer and it has three GET methods as illustrated in the diagram. For order details you can specify an integer from 1 to 1000. If you specify the count parameter it will show the first # of orders up to the count you specify.
-
-The aggregate which is exposed locally on port 5003 combines information from the orders data service and the items data service. It has a single method which will actually return exactly the same thing as the backend /detail/ method, but of course you haven't exposed the aggregate microservice in the real world, and you'd do other value-add things in the API layer like authentication.
-
-The orders microservice is a data service, and typically you'd be going after a database of some kind. Here a faker is used to create 1000 orders and they're kept in memory for the life of the run. The /custSearch method (which isn't used by the backend currently, but demonstrates how to take a JSON payload, much like you would pass to a microservice via a gRPC request or your preferred equivalent) can be queried through postman or some other REST testing interface. You'd set the "content-type" to "application/json" and provide a JSON payload like:
-
-```json
-{
-  "name": "Daniel"
-}
-```
-
-Lastly the items microservice provides information about 100 randomly created items. This one is never used directly by the backend, but indirectly through the aggregate. Again, this would be a database of some sort in the real world.
+Se realizaron los cambios debido a que la función 'detail' se puede utilizar dentro de la lógica de 'Backend', esto reduciendo el tiempo de ejecución, de recursos y de complejidad
 
 ## Running it
 
